@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1676826785 source:c:\users\123\documents\sorting\src\sm.cpp
+	<iostream>
+	"../include/SM.h"
+
+1676826785 c:\users\123\documents\sorting\include\sm.h
+
+1676826785 source:c:\users\123\documents\sorting\tests\tests.cpp
+	<iostream>
+	<ctime>
+	<cstdlib>
+	"../include/SM.h"
+	"../include/tests.h"
+
+1676826785 c:\users\123\documents\sorting\include\tests.h
+
