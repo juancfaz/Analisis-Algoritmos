@@ -54,8 +54,7 @@ void selectionSort(int arr[], int n)
     }
 }
 
-void merge(int array[], int const left, int const mid,
-           int const right)
+void merge(int array[], int const left, int const mid, int const right)
 {
     auto const subArrayOne = mid - left + 1;
     auto const subArrayTwo = right - mid;
