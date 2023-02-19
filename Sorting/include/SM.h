@@ -9,5 +9,6 @@ void insertionSort(int *arr, int n);
 void selectionSort(int *arr, int n);
 void merge(int *arr, int left, int middle, int right);
 void mergeSort(int *arr, int left, int right);
+void swap(int *xp, int *yp);
 
 #endif //SORTING_SM_H

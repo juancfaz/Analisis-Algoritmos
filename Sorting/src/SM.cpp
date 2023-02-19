@@ -4,104 +4,125 @@
 #include <iostream>
 #include "../include/SM.h"
 
-void insertionSort(int *arr, int n) {
-    for (int i = 1; i < n; i++) {
-        int key = arr[i];
-        int j = i - 1;
+void insertionSort(int arr[], int n)
+{
+    int i, key, j;
+    for (i = 1; i < n; i++)
+    {
+        key = arr[i];
+        j = i - 1;
 
-        // Mueve los elementos mayores a la derecha del elemento ordenado actual
-        while (j >= 0 && arr[j] > key) {
+        // Move elements of arr[0..i-1],
+        // that are greater than key, to one
+        // position ahead of their
+        // current position
+        while (j >= 0 && arr[j] > key)
+        {
             arr[j + 1] = arr[j];
-            j--;
+            j = j - 1;
         }
-
-        // Inserta el elemento ordenado actual en la posición correcta
         arr[j + 1] = key;
     }
 }
 
-void selectionSort(int *arr, int n) {
-    for (int i = 0; i < n - 1; i++) {
-        int minIndex = i;
+void swap(int *xp, int *yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
 
-        // Encuentra el elemento mínimo en el arreglo sin ordenar
-        for (int j = i + 1; j < n; j++) {
-            if (arr[j] < arr[minIndex]) {
-                minIndex = j;
-            }
+void selectionSort(int arr[], int n)
+{
+    int i, j, min_idx;
+    // One by one move boundary of
+    // unsorted subarray
+    for (i = 0; i < n-1; i++)
+    {
+        // Find the minimum element in
+        // unsorted array
+        min_idx = i;
+        for (j = i+1; j < n; j++)
+        {
+            if (arr[j] < arr[min_idx])
+                min_idx = j;
         }
-
-        // Intercambia el elemento mínimo con el primer elemento sin ordenar
-        if (minIndex != i) {
-            std :: swap(arr[minIndex], arr[i]);
-        }
+        // Swap the found minimum element
+        // with the first element
+        if (min_idx!=i)
+            swap(&arr[min_idx], &arr[i]);
     }
 }
 
-void merge(int *arr, int left, int middle, int right) {
-    int i, j, k;
-    int n1 = middle - left + 1;
-    int n2 = right - middle;
+void merge(int array[], int const left, int const mid,
+           int const right)
+{
+    auto const subArrayOne = mid - left + 1;
+    auto const subArrayTwo = right - mid;
 
-    // Crea arreglos temporales para almacenar las sub-listas izquierda y derecha
-    int *leftArr = new int[n1];
-    int *rightArr = new int[n2];
+    // Create temp arrays
+    auto *leftArray = new int[subArrayOne],
+            *rightArray = new int[subArrayTwo];
 
-    // Copia los elementos de la sub-lista izquierda en el arreglo temporal
-    for (i = 0; i < n1; i++) {
-        leftArr[i] = arr[left + i];
-    }
+    // Copy data to temp arrays leftArray[] and rightArray[]
+    for (auto i = 0; i < subArrayOne; i++)
+        leftArray[i] = array[left + i];
+    for (auto j = 0; j < subArrayTwo; j++)
+        rightArray[j] = array[mid + 1 + j];
 
-    // Copia los elementos de la sub-lista derecha en el arreglo temporal
-    for (j = 0; j < n2; j++) {
-        rightArr[j] = arr[middle + 1 + j];
-    }
+    auto indexOfSubArrayOne
+            = 0, // Initial index of first sub-array
+    indexOfSubArrayTwo
+    = 0; // Initial index of second sub-array
+    int indexOfMergedArray
+            = left; // Initial index of merged array
 
-    i = 0;
-    j = 0;
-    k = left;
-
-    // Combina las sub-listas izquierda y derecha en el arreglo ordenado
-    while (i < n1 && j < n2) {
-        if (leftArr[i] <= rightArr[j]) {
-            arr[k] = leftArr[i];
-            i++;
-        } else {
-            arr[k] = rightArr[j];
-            j++;
+    // Merge the temp arrays back into array[left..right]
+    while (indexOfSubArrayOne < subArrayOne
+           && indexOfSubArrayTwo < subArrayTwo) {
+        if (leftArray[indexOfSubArrayOne]
+            <= rightArray[indexOfSubArrayTwo]) {
+            array[indexOfMergedArray]
+                    = leftArray[indexOfSubArrayOne];
+            indexOfSubArrayOne++;
         }
-        k++;
+        else {
+            array[indexOfMergedArray]
+                    = rightArray[indexOfSubArrayTwo];
+            indexOfSubArrayTwo++;
+        }
+        indexOfMergedArray++;
     }
-
-    // Copia los elementos restantes de la sub-lista izquierda (si los hay)
-    while (i < n1) {
-        arr[k] = leftArr[i];
-        i++;
-        k++;
+    // Copy the remaining elements of
+    // left[], if there are any
+    while (indexOfSubArrayOne < subArrayOne) {
+        array[indexOfMergedArray]
+                = leftArray[indexOfSubArrayOne];
+        indexOfSubArrayOne++;
+        indexOfMergedArray++;
     }
-
-    // Copia los elementos restantes de la sub-lista derecha (si los hay)
-    while (j < n2) {
-        arr[k] = rightArr[j];
-        j++;
-        k++;
+    // Copy the remaining elements of
+    // right[], if there are any
+    while (indexOfSubArrayTwo < subArrayTwo) {
+        array[indexOfMergedArray]
+                = rightArray[indexOfSubArrayTwo];
+        indexOfSubArrayTwo++;
+        indexOfMergedArray++;
     }
-
-    // Libera la memoria del arreglo temporal
-    delete[] leftArr;
-    delete[] rightArr;
+    delete[] leftArray;
+    delete[] rightArray;
 }
 
-void mergeSort(int *arr, int left, int right) {
-    if (left < right) {
-        int middle = left + (right - left) / 2;
+// begin is for left index and end is
+// right index of the sub-array
+// of arr to be sorted */
+void mergeSort(int array[], int const begin, int const end)
+{
+    if (begin >= end)
+        return; // Returns recursively
 
-        // Ordena la sub-lista izquierda
-        mergeSort(arr, left, middle);
-
-        // Ordena la sub-lista derecha
-        mergeSort(arr, middle + 1, right);
-
-        merge(arr, left, middle, right);
-    }
+    auto mid = begin + (end - begin) / 2;
+    mergeSort(array, begin, mid);
+    mergeSort(array, mid + 1, end);
+    merge(array, begin, mid, end);
 }

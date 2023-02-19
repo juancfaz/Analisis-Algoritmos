@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/juancarlosfazleal/CLionProjects/Sorting/cmake-build-debug",
-		"source" : "/Users/juancarlosfazleal/CLionProjects/Sorting"
+		"build" : "/Users/juancarlosfazleal/Desktop/Analisis-Algoritmos/Sorting/cmake-build-debug",
+		"source" : "/Users/juancarlosfazleal/Desktop/Analisis-Algoritmos/Sorting"
 	},
 	"version" : 
 	{

@@ -1,4 +1,4 @@
-# Install script for directory: /Users/juancarlosfazleal/CLionProjects/Sorting
+# Install script for directory: /Users/juancarlosfazleal/Desktop/Analisis-Algoritmos/Sorting
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/juancarlosfazleal/CLionProjects/Sorting/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/juancarlosfazleal/Desktop/Analisis-Algoritmos/Sorting/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
